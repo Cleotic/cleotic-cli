@@ -3,10 +3,10 @@
 # Install the Cleotic CLI.
 #
 # Typical usage:
-#   curl -fsSL https://raw.githubusercontent.com/generaldataworks/cleotic-cli/main/install.sh | sh
+#   curl -fsSL https://raw.githubusercontent.com/Cleotic/cleotic-cli/main/install.sh | sh
 #
 # Pin a version:
-#   curl -fsSL https://raw.githubusercontent.com/generaldataworks/cleotic-cli/main/install.sh | CLEOTIC_VERSION=v0.1.0 sh
+#   curl -fsSL https://raw.githubusercontent.com/Cleotic/cleotic-cli/main/install.sh | CLEOTIC_VERSION=v0.1.0 sh
 #
 # Install to a specific directory:
 #   CLEOTIC_INSTALL_DIR="$HOME/.local/bin" sh install.sh
@@ -14,12 +14,12 @@
 # Respects:
 #   CLEOTIC_VERSION      Release version to install. Defaults to latest.
 #   CLEOTIC_INSTALL_DIR  Destination directory. Defaults to $HOME/.local/bin.
-#   CLEOTIC_REPO         GitHub repo for release assets. Defaults to generaldataworks/cleotic-cli.
+#   CLEOTIC_REPO         GitHub repo for release assets. Defaults to Cleotic/cleotic-cli.
 #   CLEOTIC_BASE_URL     Full base URL for release assets. Used for testing/staging.
 #
 set -eu
 
-default_repo="generaldataworks/cleotic-cli"
+default_repo="Cleotic/cleotic-cli"
 repo="${CLEOTIC_REPO:-$default_repo}"
 version="${CLEOTIC_VERSION:-latest}"
 base_url="${CLEOTIC_BASE_URL:-}"

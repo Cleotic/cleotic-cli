@@ -12,19 +12,19 @@ monitors, and prompts.
 Install the latest release:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/generaldataworks/cleotic-cli/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/Cleotic/cleotic-cli/main/install.sh | sh
 ```
 
 Install a specific release:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/generaldataworks/cleotic-cli/main/install.sh | CLEOTIC_VERSION=v0.5.0 sh
+curl -fsSL https://raw.githubusercontent.com/Cleotic/cleotic-cli/main/install.sh | CLEOTIC_VERSION=v0.5.0 sh
 ```
 
 Install to a different directory (default is `$HOME/.local/bin`):
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/generaldataworks/cleotic-cli/main/install.sh | CLEOTIC_INSTALL_DIR="$HOME/bin" sh
+curl -fsSL https://raw.githubusercontent.com/Cleotic/cleotic-cli/main/install.sh | CLEOTIC_INSTALL_DIR="$HOME/bin" sh
 ```
 
 ## Keep Cleotic up to date
