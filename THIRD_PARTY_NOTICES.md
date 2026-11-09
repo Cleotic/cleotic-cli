@@ -29,7 +29,7 @@ The Cleotic CLI includes third-party open source software.
 | github.com/muesli/ansi | MIT | https://github.com/muesli/ansi/blob/276c6243b2f6/LICENSE |
 | github.com/muesli/cancelreader | MIT | https://github.com/muesli/cancelreader/blob/v0.2.2/LICENSE |
 | github.com/muesli/termenv | MIT | https://github.com/muesli/termenv/blob/v0.16.0/LICENSE |
-| github.com/oapi-codegen/runtime | Apache-2.0 | https://github.com/oapi-codegen/runtime/blob/v1.4.1/LICENSE |
+| github.com/oapi-codegen/runtime | Apache-2.0 | https://github.com/oapi-codegen/runtime/blob/v1.8.0/LICENSE |
 | github.com/rivo/uniseg | MIT | https://github.com/rivo/uniseg/blob/v0.4.7/LICENSE.txt |
 | github.com/spf13/cobra | Apache-2.0 | https://github.com/spf13/cobra/blob/v1.10.2/LICENSE.txt |
 | github.com/spf13/pflag | BSD-3-Clause | https://github.com/spf13/pflag/blob/v1.0.9/LICENSE |
