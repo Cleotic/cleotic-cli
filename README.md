@@ -5,7 +5,8 @@ Command line tools for Cleotic.
 Cleotic organizes your work into brands and studies, with commands for
 each brand's primary brand and competitors. Use the CLI interactively,
 in scripts, or through an AI agent to manage brands, competitors,
-monitors, and prompts.
+segments, and prompts, check site readiness, work through the
+opportunity inbox, export AI traffic, and create client reports.
 
 ## Install
 
@@ -18,7 +19,7 @@ curl -fsSL https://raw.githubusercontent.com/Cleotic/cleotic-cli/main/install.sh
 Install a specific release:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/Cleotic/cleotic-cli/main/install.sh | CLEOTIC_VERSION=v0.5.0 sh
+curl -fsSL https://raw.githubusercontent.com/Cleotic/cleotic-cli/main/install.sh | CLEOTIC_VERSION=v0.6.1 sh
 ```
 
 Install to a different directory (default is `$HOME/.local/bin`):
@@ -96,9 +97,11 @@ is a project: its project ID is what `--project`, `cleotic projects use`,
 and the `default_project_id` setting expect.
 
 ```sh
-# First-time setup: create a brand and its first monitor in one go
-cleotic setup
-cleotic setup --no-input --brand-name "Acme" --brand-domain acme.com
+# First-time setup: read a brand's website and set up the brand, its
+# competitors, a segment and prompts (needs `cleotic auth login`)
+cleotic setup acme.com
+cleotic setup acme.com --no-input --market GB --json
+cleotic setup --resume <setup-id>          # continue a setup waiting for approval
 
 # Read
 cleotic brands list
@@ -108,25 +111,43 @@ cleotic projects show <project-id>
 cleotic projects summary <project-id>
 cleotic primary-brand show --project <project-id>
 cleotic competitors list --project <project-id>
-cleotic monitors list --project <project-id>
-cleotic prompts list --monitor <monitor-id>
+cleotic segments list --project <project-id>
+cleotic prompts list --segment <segment-id>
+cleotic readiness show <project-id>        # latest site readiness score
+cleotic readiness issues <project-id>      # its open issues in fix order
+cleotic opportunities list <project-id>    # the brand's opportunity inbox
+cleotic opportunities show <opportunity-id> --project <project-id>
+cleotic ai-traffic summary <project-id> --from 2026-10-01 --to 2026-10-31
+cleotic ai-traffic pages <project-id> --json   # every page, last 30 days
+cleotic reports list <project-id>          # the brand's client reports
+cleotic reports show <report-id> --project <project-id>
+
+# Gate CI on site readiness: exit code 3 below the threshold
+cleotic readiness show <project-id> --wait --fail-under 70
 
 # Write
 cleotic projects use <project-id>
 cleotic primary-brand set --name "Acme" --domain acme.com --alias "Acme Inc"
 cleotic competitors create --name "Rival" --domain rival.com
 cleotic competitors update <competitor-id> --alias "Rival Co"
-cleotic monitors create --name "Acme AI visibility"
-cleotic prompts create --monitor <monitor-id> --text "best crm for smb"
+cleotic segments create --name "Acme AI visibility"
+cleotic prompts create --segment <segment-id> --text "best crm for smb"
+cleotic opportunities move <opportunity-id> --stage watching   # its work shipped
+cleotic reports create <project-id>        # last month's report and its public link
 
 # Delete (asks for confirmation; --yes skips it)
-cleotic prompts delete <prompt-id> --monitor <monitor-id>
-cleotic monitors delete <monitor-id> --yes
+cleotic prompts delete <prompt-id> --segment <segment-id>
+cleotic segments delete <segment-id> --yes
 cleotic competitors delete <competitor-id> --project <project-id>
 cleotic projects delete <project-id>
 ```
 
 `--alias` replaces the existing alias list.
+
+`cleotic readiness show --fail-under <score>` exits with code 3 when the
+site readiness score is below `<score>`, and 1 when there is no finished
+scan to check. The CLI reads scans but cannot start one: after a brand's
+first scan, scans only run on the weekly schedule.
 
 ## Scripting
 
@@ -136,7 +157,8 @@ The CLI holds a firm machine contract across every command:
   with progress and prompts kept on stderr, so piping into `jq` just
   works.
 - Exit codes are stable: `0` success, `1` the operation failed, `2` you
-  got the usage wrong.
+  got the usage wrong, `3` the site readiness score is below
+  `readiness show --fail-under`.
 - Deletes are safe by default: they ask for confirmation in a terminal,
   and with `--no-input` (or no terminal) a delete without `--yes` fails
   with exit code `2` instead of prompting.
@@ -166,10 +188,10 @@ and `x86_64`.
 The release asset filenames include the CLI version:
 
 ```text
-cleotic_0.5.0_mac-os_arm64.tar.gz
-cleotic_0.5.0_mac-os_x86_64.tar.gz
-cleotic_0.5.0_linux_arm64.tar.gz
-cleotic_0.5.0_linux_x86_64.tar.gz
+cleotic_0.6.1_mac-os_arm64.tar.gz
+cleotic_0.6.1_mac-os_x86_64.tar.gz
+cleotic_0.6.1_linux_arm64.tar.gz
+cleotic_0.6.1_linux_x86_64.tar.gz
 ```
 
 Each archive has a matching `.sha256` checksum file.
